@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "bootstrap.server.url",
+    "type": "java.lang.String",
+    "description": "A description for 'bootstrap.server.url'"
+  },
+  {
+    "name": "profile.server.api.url.mobile",
+    "type": "java.lang.String",
+    "description": "A description for 'profile.server.api.url.mobile'"
+  },
+  {
+    "name": "profile.server.api.url",
+    "type": "java.lang.String",
+    "description": "A description for 'profile.server.api.url'"
+  },
+  {
+    "name": "token.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'token.secret'"
+  }
+]}
