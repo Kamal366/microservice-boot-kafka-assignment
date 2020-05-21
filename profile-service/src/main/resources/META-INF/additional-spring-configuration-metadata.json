@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "bootstrap.server.url",
+  "type": "java.lang.String",
+  "description": "A description for 'bootstrap.server.url'"
+}]}
