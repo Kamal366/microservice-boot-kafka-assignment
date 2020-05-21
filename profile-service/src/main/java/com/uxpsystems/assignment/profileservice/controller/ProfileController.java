@@ -17,10 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uxpsystems.assignment.profileservice.model.UserProfile;
-
-import com.uxpsystems.assignment.profileservice.service.UserProfileService;
 import com.uxpsystems.assignment.profileservice.constant.ProfileConstants;
+import com.uxpsystems.assignment.profileservice.model.UserProfile;
+import com.uxpsystems.assignment.profileservice.service.UserProfileService;
 
 
 @RestController
@@ -32,14 +31,21 @@ public class ProfileController {
 	private UserProfileService userProfileSerice;
 
 
+	/**
+	 * @return all user profile data
+	 */
 	@GetMapping(ProfileConstants.URL_ALLPROFILE)
 	public List<UserProfile> getAllUsers() {
 		return userProfileSerice.findAll();
 	}
 	
 
+	/**
+	 * @param userName
+	 * @return user profile by username
+	 */
 	@GetMapping(value=ProfileConstants.URL_PROFILE_UN, produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<Object> getUserById(
+	public  ResponseEntity<Object> getUserByName(
 			@PathVariable(value = ProfileConstants.USER_NAME) String userName){
 
 		UserProfile user = userProfileSerice.findByUsername(userName);
@@ -51,6 +57,10 @@ public class ProfileController {
 	}
 
 
+	/**
+	 * @param mobile
+	 * @return user profile by mobile number
+	 */
 	@GetMapping(value=ProfileConstants.URL_PROFILE_MOB, produces = MediaType.APPLICATION_JSON_VALUE)
 	public  ResponseEntity<Object> getUserByMobile(
 			@PathVariable(value = ProfileConstants.MOBILE) String mobile){
@@ -64,6 +74,10 @@ public class ProfileController {
 	}
 	
 
+	/**
+	 * @param userDetails
+	 * @return create profile data and exception if any
+	 */
 	@PostMapping(value=ProfileConstants.URL_PROFILE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> createProfile(@Valid @RequestBody UserProfile userDetails) {
 
@@ -83,6 +97,9 @@ public class ProfileController {
 	}
 	
 
+	/**
+	 * @param userProfile
+	 */
 	@KafkaListener(topics = ProfileConstants.TOPIC_PROFILE_JSON, groupId = ProfileConstants.GROUP_JSON,
 			containerFactory = ProfileConstants.LISTENER_FACTORY)
 	public void updateProfile(UserProfile userProfile) {
@@ -96,6 +113,9 @@ public class ProfileController {
 	}
 	
 
+	/**
+	 * @param userProfile
+	 */
 	@KafkaListener(topics = ProfileConstants.TOPIC_DELETE_PROFILE, groupId = ProfileConstants.GROUP_JSON,
 			containerFactory = ProfileConstants.LISTENER_FACTORY)
 	public void deleteProfile(UserProfile userProfile) {

@@ -24,9 +24,11 @@ public class ConsumerKafkaConfiguration {
 	@Value("${bootstrap.server.url}")
 	private String bootstrapServer;
 
+	//consumer configuration
     @Bean
     public ConsumerFactory<String, UserProfile> userConsumerFactory() {
     	
+        //allow deserializer in config
     	JsonDeserializer<UserProfile> deserializer = new JsonDeserializer<>(UserProfile.class);
 	    deserializer.setRemoveTypeHeaders(false);
 	    deserializer.addTrustedPackages("*");

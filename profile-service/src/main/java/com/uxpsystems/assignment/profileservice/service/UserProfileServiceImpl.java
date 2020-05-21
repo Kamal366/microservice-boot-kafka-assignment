@@ -15,22 +15,34 @@ public class UserProfileServiceImpl implements UserProfileService {
 	private UserProfileRepository userProfileRepository;
 
 
+	/**
+	 * get all user data
+	 */
 	@Override
 	public List<UserProfile> findAll() {
 		return userProfileRepository.findAll();
 	}
 
+	/**
+	 * find user profile by username
+	 */
 	@Override
 	public UserProfile findByUsername(String userName) {
 
 		return userProfileRepository.findByUsername(userName);
 	}
 
+	/**
+	 * method to save user profile data
+	 */
 	@Override
 	public UserProfile save(UserProfile userProfile) {
 		return userProfileRepository.save(userProfile);
 	}
 
+	/**
+	 * method to update user
+	 */
 	public UserProfile updateUser(UserProfile userProfile) {
 
 		String userName = userProfile.getUsername();
@@ -45,6 +57,9 @@ public class UserProfileServiceImpl implements UserProfileService {
 	}
 
 
+	/**
+	 * delete user method
+	 */
 	@Override
 	public void deleteUser(String userName) {
 
@@ -54,6 +69,9 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 	}
 
+	/**
+	 * method to find user by mobile number
+	 */
 	@Override
 	public UserProfile findUserByMobile(String mobile) {
 		return userProfileRepository.findByMobile(mobile);
