@@ -120,14 +120,6 @@ public class UserServiceImpl implements UserService,UserDetailsService{
 	}
 
 	/**
-	 * get all user profile data
-	 */
-	@Override
-	public List<User> findAll() {
-		return userRepository.findAll(); 
-	}
-
-	/**
 	 *find profile by username
 	 */
 	@Override

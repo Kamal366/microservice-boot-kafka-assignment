@@ -3,8 +3,6 @@ package com.uxpsystems.assignment.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import java.util.List;
-
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uxpsystems.assignment.config.TokenUtil;
-import com.uxpsystems.assignment.dao.User;
 import com.uxpsystems.assignment.model.TokenRequest;
 import com.uxpsystems.assignment.model.TokenResponse;
 import com.uxpsystems.assignment.model.UserDTO;
@@ -57,8 +54,6 @@ public class LoginController {
 	private static final String SUCCESS = "success";
 
 	private static final String PROFILE = "/profile";
-
-	private static final String ALLUSERS = "/allusers";
 
 	private static final String PROBLEM_IN_CREATING_PROFILE = "Problem in creating profile";
 
@@ -115,13 +110,6 @@ public class LoginController {
 		}
 	}
 	
-	/**
-	 * @return all user data
-	 */
-	@GetMapping(ALLUSERS) public List<User> getAllUsers() {
-		return userService.findAll(); 
-	}
-
 	/**
 	 * @param request
 	 * @return logged in user profile

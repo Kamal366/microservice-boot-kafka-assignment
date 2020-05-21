@@ -1,7 +1,5 @@
 package com.uxpsystems.assignment.service;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -14,8 +12,6 @@ import com.uxpsystems.assignment.model.UserDTO;
 import com.uxpsystems.assignment.model.UserProfile;
 
 public interface UserService {
-
-	public List<User> findAll();
 
 	public User findByUsername(String userName);
 
