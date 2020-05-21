@@ -55,9 +55,9 @@ public class TokenRequestFilter extends OncePerRequestFilter {
 			try {
 				username = TokenUtil.getUsernameFromToken(jwtToken);
 			} catch (IllegalArgumentException e) {
-				System.out.println(UNABLE_TO_GET_JWT_TOKEN);
+				logger.warn(UNABLE_TO_GET_JWT_TOKEN);
 			} catch (ExpiredJwtException e) {
-				System.out.println(JWT_TOKEN_HAS_EXPIRED);
+				logger.warn(JWT_TOKEN_HAS_EXPIRED);
 			}
 		} else {
 			logger.warn(JWT_TOKEN_DOES_NOT_BEGIN_WITH_BEARER_STRING);
