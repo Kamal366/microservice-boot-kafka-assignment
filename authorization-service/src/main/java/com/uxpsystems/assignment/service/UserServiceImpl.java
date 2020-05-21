@@ -2,7 +2,6 @@ package com.uxpsystems.assignment.service;
 
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
