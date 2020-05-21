@@ -38,6 +38,9 @@ public class UserServiceImpl implements UserService,UserDetailsService{
 	@Autowired
 	private UserRepository userRepository;
 	
+	/**
+	 * @return
+	 */
 	@Bean
 	public RestTemplate restTemplate() {
 	    return new RestTemplate();
@@ -83,8 +86,6 @@ public class UserServiceImpl implements UserService,UserDetailsService{
 
 	private static final String MOBILE = "mobile";
 
-	//private static final String ADDRESS = "address";
-
 	public static final String VALID = "valid";
 
 	private static final String USERNAME = "username";
@@ -94,6 +95,10 @@ public class UserServiceImpl implements UserService,UserDetailsService{
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
 
+	
+	/**
+	 * fin user by username
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userRepository.findByUsername(username);
@@ -104,6 +109,9 @@ public class UserServiceImpl implements UserService,UserDetailsService{
 				new ArrayList<>());
 	}
 	
+	/**
+	 * Save User Auth data
+	 */
 	public User save(UserDTO user) {
 		User newUser = new User();
 		newUser.setUsername(user.getUsername());
@@ -111,16 +119,25 @@ public class UserServiceImpl implements UserService,UserDetailsService{
 		return userRepository.save(newUser);
 	}
 
+	/**
+	 * get all user profile data
+	 */
 	@Override
 	public List<User> findAll() {
 		return userRepository.findAll(); 
 	}
 
+	/**
+	 *find profile by username
+	 */
 	@Override
 	public User findByUsername(String userName) {
 		return userRepository.findByUsername(userName);
 	}
 
+	/**
+	 *Get Profile data method
+	 */
 	@Override
 	public String getProfile(HttpServletRequest request) {
 
@@ -135,6 +152,9 @@ public class UserServiceImpl implements UserService,UserDetailsService{
 
 	}
 
+	/**
+	 *Create Profile method
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public String createProfile(HttpServletRequest request, @Valid UserProfile userDetails) throws ParseException {
@@ -170,6 +190,9 @@ public class UserServiceImpl implements UserService,UserDetailsService{
 	}
 
 
+	/**
+	 *Update Profile data
+	 */
 	@Override
 	public String updateProfile(HttpServletRequest request, @Valid UserProfile userDetails) throws ParseException {
 		Principal userPrincipal =  request.getUserPrincipal();
@@ -183,16 +206,15 @@ public class UserServiceImpl implements UserService,UserDetailsService{
 
 		}
 
-		//UserProfile profileInput = new UserProfile();
-		//profileInput.setUsername(userName);
-		//profileInput.setAddress(userDetails.get(ADDRESS).toString());
-		//profileInput.setMobile(userDetails.get(MOBILE).toString());
 		userDetails.setUsername(userName);
 		kafkaTemplate.send(TOPIC, userDetails);
 
 		return SUCCESS;
 	}
 
+	/**
+	 *Delete logged user profile
+	 */
 	@Override
 	public String deleteProfile(HttpServletRequest request) throws ParseException {
 		final String userProfileExists =getProfile(request);
@@ -210,6 +232,13 @@ public class UserServiceImpl implements UserService,UserDetailsService{
 		return SUCCESS;
 	}
 
+	/**
+	 * @param userDetails
+	 * @param request
+	 * @param operation
+	 * @return String validate data
+	 * @throws ParseException
+	 */
 	private String validateProfileData(@Valid UserProfile userDetails,HttpServletRequest request,String operation) throws ParseException {
 
 

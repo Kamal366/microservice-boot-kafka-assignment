@@ -73,6 +73,11 @@ public class LoginController {
 	@Autowired
 	private TokenUtil tokenUtil;
 
+	/**
+	 * @param authenticationRequest
+	 * @return ResponseEntity User logged in
+	 * @throws Exception
+	 */
 	@RequestMapping(value = LOGIN, method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody TokenRequest authenticationRequest) throws Exception {
 
@@ -85,11 +90,21 @@ public class LoginController {
 		return ResponseEntity.ok(new TokenResponse(BEARER+token));
 	}
 	
+	/**
+	 * @param user
+	 * @return ResponseEntity registerd user data
+	 * @throws Exception
+	 */
 	@RequestMapping(value = REGISTER, method = RequestMethod.POST)
 	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
 		return ResponseEntity.ok(userService.save(user));
 	}
 
+	/**
+	 * @param username
+	 * @param password
+	 * @throws Exception
+	 */
 	private void authenticate(String username, String password) throws Exception {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
@@ -100,10 +115,17 @@ public class LoginController {
 		}
 	}
 	
+	/**
+	 * @return all user data
+	 */
 	@GetMapping(ALLUSERS) public List<User> getAllUsers() {
 		return userService.findAll(); 
 	}
 
+	/**
+	 * @param request
+	 * @return logged in user profile
+	 */
 	@GetMapping(value=PROFILE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> getUserProfile(HttpServletRequest request){
 
@@ -113,6 +135,12 @@ public class LoginController {
 
 	}
 
+	/**
+	 * @param request
+	 * @param userDetails
+	 * @return create user response
+	 * @throws ParseException
+	 */
 	@PostMapping(value=PROFILE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> createUserProfile(HttpServletRequest request, @Valid @RequestBody (required = true) UserProfile userDetails) throws ParseException{
 
@@ -127,6 +155,12 @@ public class LoginController {
 		
 	}
 
+	/**
+	 * @param request
+	 * @param userDetails
+	 * @return update user profile message response
+	 * @throws ParseException
+	 */
 	@PutMapping(value=PROFILE,  consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> updateUserProfile(HttpServletRequest request,@Valid @RequestBody (required = true) UserProfile userDetails) throws ParseException{
 
@@ -143,6 +177,11 @@ public class LoginController {
 
 
 
+	/**
+	 * @param request
+	 * @return delete user profile message response
+	 * @throws ParseException
+	 */
 	@DeleteMapping(value=PROFILE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> deleteUser(HttpServletRequest request) throws ParseException {
 

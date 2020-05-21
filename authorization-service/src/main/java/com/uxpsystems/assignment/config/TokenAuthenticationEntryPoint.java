@@ -16,6 +16,7 @@ public class TokenAuthenticationEntryPoint implements AuthenticationEntryPoint, 
 	private static final String UNAUTHORIZED = "Unauthorized";
 	private static final long serialVersionUID = 1L;
 
+	//Custom mapping of unauthorised error in response
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException {

@@ -19,6 +19,7 @@ public class ProducerKakfaConfiguration {
 	@Value("${bootstrap.server.url}")
 	private String bootstrapServer;
 
+	//Producer configuration
 	@Bean
 	public ProducerFactory<String, Object> producerFactory() {
 		Map<String, Object> config = new HashMap<>();
@@ -30,7 +31,7 @@ public class ProducerKakfaConfiguration {
 		return new DefaultKafkaProducerFactory<>(config);
 	}
 
-
+    //Producer factory
 	@Bean
 	public KafkaTemplate<String, Object> kafkaTemplate() {
 		return new KafkaTemplate<>(producerFactory());
