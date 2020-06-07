@@ -14,6 +14,14 @@ public class UserProfile {
 	{
 
 	}
+	
+	public UserProfile(String username, String address, String mobile) {
+		super();
+		this.username = username;
+		this.address = address;
+		this.mobile = mobile;
+	}
+
 	private String mobile;
 
 	public String getUsername() {
