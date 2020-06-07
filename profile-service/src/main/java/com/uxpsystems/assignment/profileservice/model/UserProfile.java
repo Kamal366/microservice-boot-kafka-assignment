@@ -29,6 +29,19 @@ public class UserProfile {
 	private String mobile;
 	
 
+	public UserProfile(){
+		
+	}
+	
+	public UserProfile(@Length(min = 1, message = "*Username field can not be empty") String username,
+			@NotNull @Length(min = 1, message = "*Address field can not be empty") String address,
+			@Length(min = 10, max = 10, message = "*Your mobile must have at least 10 number") @Pattern(regexp = "(^$|[0-9]{10})", message = "Invalid number") String mobile) {
+		super();
+		this.username = username;
+		this.address = address;
+		this.mobile = mobile;
+	}
+
 	public String getUsername() {
 		return username;
 	}
