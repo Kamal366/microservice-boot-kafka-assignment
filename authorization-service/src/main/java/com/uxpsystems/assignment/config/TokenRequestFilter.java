@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.uxpsystems.assignment.service.UserServiceImpl;
+import com.uxpsystems.assignment.service.UserService;
 
 import io.jsonwebtoken.ExpiredJwtException;
 
@@ -33,10 +33,10 @@ public class TokenRequestFilter extends OncePerRequestFilter {
 	private static final String AUTHORIZATION = "Authorization";
 	
 	@Autowired
-	private UserServiceImpl userServiceImpl;
+	private UserService userService;
 
 	@Autowired
-	private TokenUtil TokenUtil;
+	private TokenUtil tokenUtil;
 
 	/**
 	 *Filter the valid request Auth data
@@ -53,7 +53,7 @@ public class TokenRequestFilter extends OncePerRequestFilter {
 		if (requestTokenHeader != null && requestTokenHeader.startsWith(BEARER)) {
 			jwtToken = requestTokenHeader.substring(7);
 			try {
-				username = TokenUtil.getUsernameFromToken(jwtToken);
+				username = tokenUtil.getUsernameFromToken(jwtToken);
 			} catch (IllegalArgumentException e) {
 				logger.warn(UNABLE_TO_GET_JWT_TOKEN);
 			} catch (ExpiredJwtException e) {
@@ -66,10 +66,10 @@ public class TokenRequestFilter extends OncePerRequestFilter {
 		// Once we get the token validate it.
 		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-			UserDetails userDetails = userServiceImpl.loadUserByUsername(username);
+			UserDetails userDetails = userService.loadUserByUsername(username);
 
 			// authentication
-			if (TokenUtil.validateToken(jwtToken, userDetails)) {
+			if (tokenUtil.validateToken(jwtToken, userDetails)) {
 
 				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
 						userDetails, null, userDetails.getAuthorities());

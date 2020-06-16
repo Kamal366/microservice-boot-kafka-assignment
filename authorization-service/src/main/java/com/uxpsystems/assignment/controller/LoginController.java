@@ -82,7 +82,7 @@ public class LoginController {
 
 		final String token = tokenUtil.generateToken(userDetails);
 
-		return ResponseEntity.ok(new TokenResponse(BEARER+token));
+		return ResponseEntity.ok(new TokenResponse(token));
 	}
 	
 	/**
