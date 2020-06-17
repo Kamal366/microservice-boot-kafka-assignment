@@ -34,9 +34,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 @RestController
 public class LoginController {
 
-
-	private static final String BEARER = "Bearer ";
-
 	private static final String LOGIN = "/login";
 
 	private static final String REGISTER = "/register";
