@@ -32,7 +32,7 @@ import com.uxpsystems.assignment.profileservice.constant.ProfileConstants;
 import com.uxpsystems.assignment.profileservice.model.UserProfile;
 import com.uxpsystems.assignment.profileservice.service.UserProfileService;
 
-
+//comment added
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = ProfileController.class)
 public class ProfileControllerTest {
